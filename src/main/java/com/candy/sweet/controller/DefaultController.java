@@ -15,4 +15,10 @@ public class DefaultController {
     public String getLoginPage(){
         return "sign-in";
     }
+
+    @GetMapping
+    public String getAdminAccount(){
+        //
+        return "admin-page";
+    }
 }
