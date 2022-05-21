@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<nav class="text-center">
+    <h2>Candy Shop</h2>
+    <h2 sec:authorize="isAuthenticated()">Logged user: <span sec:authentication="name">Bob</span></h2>
+    <a sec:authorize="isAuthenticated()" class="btn btn-primary" href="/candy-base">My base</a>
+    <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-primary">Login</a>
+    <a sec:authorize="!isAuthenticated()" href="/candy-shop/sign-up" class="btn btn-warning">Sign Up</a>
+    <a sec:authorize="isAuthenticated()" th:if="${isAdmin}" href="/candy-shop/myorders" class="btn btn-secondary">Orders</a>
+    <a sec:authorize="isAuthenticated()" class="btn btn-danger" href="/logout">Logout</a>
+</nav>
+
+
+<div class="container bg-warning row">
+
+    <div class="card col-3 text-center" style="width: 18rem;" th:each="candy : ${candy_list}">
+        <img th:src="@{api/{accountId}/{imageLink}(imageLink = ${candy.imageLink}, accountId = ${candy.theAccount.id})}"
+             class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 th:text="${candy.name}" class="card-title">Card title</h5>
+            <span class="card-text">
+                <p>Price: <span th:text="${candy.price}"></span></p>
+            </span>
+            <a th:href="@{/candy-shop/info/{id} (id=${candy.id}) }" class="btn btn-primary">More</a>
+            <a th:href="@{/candy-shop/basket/buy/{id} (id=${candy.id})}" class="btn btn-success">Buy</a>
+        </div>
+    </div>
+
+    <style>
+        #basket{
+            position: fixed;
+            top: 0;
+            right:0;
+            width: 200px;
+            height:100vh;
+        }
+
+        #basket img{
+            width: 100px;
+            height: 100px
+        }
+    </style>
+
+    <div th:if="${not #lists.isEmpty(purchaseList)}" id="basket" class="bg-secondary text-center">
+        <div th:each="product : ${purchaseList}">
+            <img th:src="@{api/{accountId}/{imageLink}(imageLink = ${product.imageLink}, accountId = ${product.theAccount.id})}"
+                 class="card-img-top" alt="...">
+            <a th:href="@{/candy-shop/basket/delete/{id} (id=${product.id})}" class="btn btn-danger">X</a>
+        </div>
+
+        <a th:href="@{/candy-shop/purchase}" class="btn btn-primary">Purchase</a>
+    </div>
+
+</div>
+
+
+
+<div th:if="${#lists.isEmpty(candy_list)}" id="carouselExampleIndicators" class="carousel slide w-75 h-75 d-block m-auto" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://www.notebookcheck.biz/uploads/tx_nbc2/MicrosoftSurfaceLaptopStudio_01.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://www.notebookcheck.net/uploads/tx_nbc2/SL4_AMD_1.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&w=1000&q=80" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+</body>
+</html>

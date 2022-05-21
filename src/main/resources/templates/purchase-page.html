@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="/candy-shop/finishPurchase" method="POST" th:object="${order}">
+
+        <input th:field="*{customerFullName}" type="text" placeholder="full name">
+        <span th:if="${#fields.hasErrors('customerFullName')}" th:errors="*{customerFullName}"></span><br>
+
+        <input th:field="*{customerAddress}" type="text" placeholder="address">
+        <span th:if="${#fields.hasErrors('customerAddress')}" th:errors="*{customerAddress}"></span><br>
+
+        <input th:field="*{payAmount}" type="number" placeholder="amount">
+        <span th:if="${#fields.hasErrors('payAmount')}" th:errors="*{payAmount}"></span><br>
+
+        <input type="submit" value="Finish buy process">
+    </form>
+</body>
+</html>

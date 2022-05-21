@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th>N</th>
+            <th>Customer Name</th>
+            <th>Customer Address</th>
+            <th>Pay Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr th:each="order : ${orderList}">
+                <td th:text="${order.id}">id</td>
+                <td th:text="${order.customerFullName}">name</td>
+                <td th:text="${order.customerAddress}">address</td>
+                <td th:text="${order.payAmount}">amount</td>
+                <td>
+                    <ul>
+                        <li th:each="candy : ${order.orderedCandyList}">
+                            <span th:text="${candy.name}"></span>
+                            <span th:text="${candy.theAccount.full_name}"></span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

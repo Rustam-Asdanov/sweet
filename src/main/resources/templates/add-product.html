@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/candy-base}" class="container"
+          method="POST" th:object="${candy}"
+          enctype="multipart/form-data"
+    >
+        <input type="hidden" th:field="*{id}">
+        <label>Name</label>
+        <input type="text" th:field="*{name}"><br>
+        <label>Category</label>
+        <input type="text" th:field="*{category}"><br>
+        <label>Price</label>
+        <input type="text" th:field="*{price}"><br>
+        <label>Image</label>
+        <input type="file" name="candy_image"><br>
+        <input type="submit" value="Save" class="btn btn-warning">
+    </form>
+</body>
+</html>

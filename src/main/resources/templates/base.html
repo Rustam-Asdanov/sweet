@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <title>Title</title>
+</head>
+<body>
+<nav class="text-center">
+    <h2>Candy Base</h2>
+    <a href="/candy-base/add-candy" class="btn btn-primary">Add product</a>
+    <a href="/candy-shop" class="btn btn-secondary">Home Page</a>
+</nav>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Function</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="candy : ${candy_list}">
+            <th scope="row" th:text="${candy.id}">id</th>
+            <td th:text="${candy.name}">name</td>
+            <td th:text="${candy.category}">category</td>
+            <td th:text="${candy.price}">price</td>
+            <td>
+                <a class="btn btn-success" th:href="@{/candy-base/edit/{id} (id=${candy.id}) }">Edit</a>
+                <a class="btn btn-danger" th:href="@{/candy-base/delete/{id} (id=${candy.id}) }">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
